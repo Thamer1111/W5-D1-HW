@@ -15,9 +15,11 @@ logoutBtn.addEventListener("click", () => {
 
 let contain = document.getElementById("contain");
 
-fetch("https://fakestoreapi.com/products")
-.then((response) => response.json())
-.then((data) => {
+async function getProducts() {
+  try {
+    let response = await fetch("https://fakestoreapi.com/products");
+    let data = await response.json();
+
     data.map((product) => {
       let div = document.createElement("div");
       let card = document.createElement("div");
@@ -42,4 +44,9 @@ fetch("https://fakestoreapi.com/products")
       div.appendChild(card);
       contain.appendChild(div);
     });
-  })
+  } catch (error) {
+    console.log("Error fetching products:", error);
+  }
+}
+
+getProducts();
